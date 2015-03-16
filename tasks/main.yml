@@ -1,4 +1,9 @@
 ---
+- name: install packages
+  apt: name={{ item }} state=present update_cache=true
+  with_items:
+    - unzip
+
 # Check what version of packer is currently installed.
 - name: set default value of packer_version and packer_install_needed
   set_fact:
