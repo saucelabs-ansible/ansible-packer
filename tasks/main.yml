@@ -50,7 +50,7 @@
   when: packer_install_needed
 
 - name: remove old packer version
-  shell: rm /usr/local/bin/packer*
+  shell: rm -f /usr/local/bin/packer*
   when: packer_install_needed
 
 - name: unpack packer
