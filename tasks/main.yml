@@ -28,6 +28,7 @@
 - name: show version info
   debug: msg="Version requested is {{ packer_version_str }}, found {{ packer_version }}, install needed is {{ packer_install_needed }}"
 
+# Create directories, then fetch and install packer package.
 - name: create packer directories
   file: path={{ item }}
         state=directory
