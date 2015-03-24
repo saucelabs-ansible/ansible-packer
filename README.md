@@ -22,9 +22,9 @@ Role variables
         url: https://s3.amazonaws.com/my-s3-bucket/packer-builder-lxc
 
   Where
-    - `name`: the name of the plugin that can be used in a packer template.
-    - `type`: either `builder` or `provisioner`.
-    - `url`: URL to fetch the binary from.
+  - `name`: the name of the plugin that can be used in a packer template.
+  - `type`: either `builder` or `provisioner`.
+  - `url`: URL to fetch the binary from.
 
   A packer configuration file at `/etc/packer.conf` will automatically created that contains any builder or provisioner installed via `packer_plugins`.
 
