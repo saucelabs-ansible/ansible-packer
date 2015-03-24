@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Vilmos Nebehaj
-  description: Role for installing Packer.
+  description: Role that installs Packer, optionally with builder/provisioner plugins.
   license: MIT
   min_ansible_version: 1.2
   platforms:
