@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ldx/ansible-packer.svg?branch=master)](https://travis-ci.org/ldx/ansible-packer)
+
 # Ansible-packer
 
 ### Introduction
