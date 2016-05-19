@@ -1,5 +1,6 @@
 ---
-packer_pkg: packer_0.8.6_linux_amd64.zip
-packer_version_str: "Packer v0.8.6"
+packer_download_url: https://releases.hashicorp.com/packer/0.10.1/
+packer_package_file: packer_0.10.1_linux_amd64.zip
+packer_version_str: "Packer v0.10.1"
 packer_plugins: {}
 packer_plugins_force_install: false

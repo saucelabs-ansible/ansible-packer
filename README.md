@@ -11,7 +11,9 @@ Ansible role for installing [packer](http://packer.io).
 Role variables
 --------------
 
-- `packer_pkg`: Packer package file, this is the archive that will be fetched. Example: `0.7.1_linux_amd64.zip`. Note: the base URL is always `https://dl.bintray.com/mitchellh/packer/`.
+- `packer_download_url`: The base URL that hosts the `packer_package_file`.
+
+- `packer_package_file`: Packer package file, this is the archive that will be fetched. Example: `0.7.1_linux_amd64.zip`.
 
 - `packer_version_str`: This is the string that is searched in the output of `packer version`. If not found, `packer_pkg` will be fetched and installed. Example: `"Packer v0.7.1"`.
 

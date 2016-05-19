@@ -21,12 +21,12 @@
 - name: update value of packer_version
   set_fact:
     packer_version: "{{ packer_version_check.stdout }}"
-  when: packer_version_check|success
+  when: packer_version_check | success
 
 - name: update value of packer_install_needed based on version check
   set_fact:
     packer_install_needed: true
-  when: packer_version.find('{{ packer_version_str }}') == -1
+  when: packer_version | match(packer_version_str)
 
 - name: show version info
   debug: msg="Version requested is {{ packer_version_str }}, found {{ packer_version }}, install needed is {{ packer_install_needed }}"
@@ -43,8 +43,8 @@
     - /var/cache/packer
 
 - name: fetch packer
-  get_url: url=https://dl.bintray.com/mitchellh/packer/{{ packer_pkg }}
-           dest=/var/cache/packer/{{ packer_pkg }}
+  get_url: url={{ packer_download_url }}/{{ packer_package_file }}
+           dest=/var/cache/packer/{{ packer_package_file }}
   when: packer_install_needed
 
 - name: link packer-packer as packer if it does not exist
@@ -57,7 +57,7 @@
   when: packer_install_needed
 
 - name: unpack packer
-  unarchive: src=/var/cache/packer/{{ packer_pkg }}
+  unarchive: src=/var/cache/packer/{{ packer_package_file }}
              dest=/usr/local/bin
              copy=no
   when: packer_install_needed
