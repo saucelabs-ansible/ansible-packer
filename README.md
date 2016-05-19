@@ -1,21 +1,18 @@
 [![Build Status](https://travis-ci.org/ldx/ansible-packer.svg?branch=master)](https://travis-ci.org/ldx/ansible-packer)
 
-# Ansible-packer
+# packer
 
-### Introduction
+Ansible role for installing [Packer](http://packer.io).
 
-Ansible role for installing [packer](http://packer.io).
+## Role variables
 
-### Usage
+- 'packer_version': The version of Packer to install, such as `0.7.1`.
 
-Role variables
---------------
+- `packer_download_url`: The URL to download the Packer install from. Derives from `packer_version`.
 
-- `packer_download_url`: The base URL that hosts the `packer_package_file`.
+- `packer_archive_path`: Where the Packer archive will be downloaded to. Derives from `packer_version`.
 
-- `packer_package_file`: Packer package file, this is the archive that will be fetched. Example: `0.7.1_linux_amd64.zip`.
-
-- `packer_version_str`: This is the string that is searched in the output of `packer version`. If not found, `packer_pkg` will be fetched and installed. Example: `"Packer v0.7.1"`.
+- `packer_binary_path`: Where Packer binaries will be extracted to.
 
 - `packer_plugins`: A dictionary of plugins to be installed. Example:
 
@@ -34,15 +31,11 @@ Role variables
 
 - `packer_plugins_force_install`: Whether to force the installation of plugins, even if they exist. Useful for forcing an update. Example: `false`.
 
-### Example playbook
+## Example playbook
 
     ---
     - hosts: all
-      sudo: yes
-    
-      vars:
-        packer_pkg: 0.7.1_linux_amd64.zip
-        packer_version_str: "Packer v0.7.1"
-    
+      sudo: True
       roles:
-        - packer
+        - role: packer
+          packer_version: 0.7.1

@@ -10,26 +10,20 @@
 # Check what version of packer is currently installed.
 - name: set default value of packer_version and packer_install_needed
   set_fact:
-    packer_version: ""
-    packer_install_needed: false
+    packer_install_needed: False
 
 - name: check packer version
-  shell: packer version
-  register: packer_version_check
-  ignore_errors: true
+  shell: packer --version
+  register: packer_current_version
+  ignore_errors: True
 
 - name: update value of packer_version
   set_fact:
-    packer_version: "{{ packer_version_check.stdout }}"
-  when: packer_version_check | success
-
-- name: update value of packer_install_needed based on version check
-  set_fact:
-    packer_install_needed: true
-  when: packer_version | match(packer_version_str)
+    packer_install_needed: "{{ not (packer_current_version.stdout | match(packer_version)) }}"
+  when: packer_current_version | success
 
 - name: show version info
-  debug: msg="Version requested is {{ packer_version_str }}, found {{ packer_version }}, install needed is {{ packer_install_needed }}"
+  debug: msg="Version requested is {{ packer_version }}, found {{ packer_current_version.stdout }}, install needed is {{ packer_install_needed }}"
 
 # Create directories, then fetch and install packer package.
 - name: create packer directories
@@ -43,8 +37,8 @@
     - /var/cache/packer
 
 - name: fetch packer
-  get_url: url={{ packer_download_url }}/{{ packer_package_file }}
-           dest=/var/cache/packer/{{ packer_package_file }}
+  get_url: url={{ packer_download_url }}
+           dest={{ packer_archive_path }}
   when: packer_install_needed
 
 - name: link packer-packer as packer if it does not exist
@@ -57,8 +51,8 @@
   when: packer_install_needed
 
 - name: unpack packer
-  unarchive: src=/var/cache/packer/{{ packer_package_file }}
-             dest=/usr/local/bin
+  unarchive: src={{ packer_archive_path }}
+             dest={{ packer_binary_path }}
              copy=no
   when: packer_install_needed
 
@@ -73,7 +67,7 @@
 
 - name: check if packer needs to be symlinked
   command: /bin/ls -1 /usr/local/bin/packer
-  ignore_errors: true
+  ignore_errors: True
   register: packer_exists
 
 - name: link packer-packer as packer if it does not exist
