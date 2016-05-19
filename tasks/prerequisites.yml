@@ -1,0 +1,12 @@
+---
+- name: install packages on Debian based distributions
+  apt: name={{ item }} state=present update_cache=true
+  with_items:
+    - unzip
+  when: ansible_os_family == "Debian"
+
+- name: install packages on Red Hat based distributions
+  yum: name={{ item }} state=present
+  with_items:
+    - unzip
+  when: ansible_os_family == "RedHat"

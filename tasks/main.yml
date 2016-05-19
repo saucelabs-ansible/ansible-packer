@@ -1,29 +1,6 @@
 ---
-- name: install packages on Debian
-  include: install_packages_debian.yml
-  when: ansible_os_family == "Debian"
-
-- name: install packages on Red Hat
-  include: install_packages_redhat.yml
-  when: ansible_os_family == "RedHat"
-
-# Check what version of packer is currently installed.
-- name: set default value of packer_version and packer_install_needed
-  set_fact:
-    packer_install_needed: False
-
-- name: check packer version
-  shell: packer --version
-  register: packer_current_version
-  ignore_errors: True
-
-- name: update value of packer_version
-  set_fact:
-    packer_install_needed: "{{ not (packer_current_version.stdout | match(packer_version)) }}"
-  when: packer_current_version | success
-
-- name: show version info
-  debug: msg="Version requested is {{ packer_version }}, found {{ packer_current_version.stdout }}, install needed is {{ packer_install_needed }}"
+- include: prerequisites.yml
+- include: check_version.yml # creates `packer_is_up_to_date`
 
 # Create directories, then fetch and install packer package.
 - name: create packer directories
@@ -39,22 +16,22 @@
 - name: fetch packer
   get_url: url={{ packer_download_url }}
            dest={{ packer_archive_path }}
-  when: packer_install_needed
+  when: not packer_is_up_to_date
 
 - name: link packer-packer as packer if it does not exist
   file: path=/usr/local/bin/packer-packer
         state=absent
-  when: packer_install_needed
+  when: not packer_is_up_to_date
 
 - name: remove old packer version
   shell: rm -f /usr/local/bin/packer*
-  when: packer_install_needed
+  when: not packer_is_up_to_date
 
 - name: unpack packer
   unarchive: src={{ packer_archive_path }}
              dest={{ packer_binary_path }}
              copy=no
-  when: packer_install_needed
+  when: not packer_is_up_to_date
 
 - name: fetch packer plugins
   get_url: url={{ item.value.url }}
@@ -76,7 +53,7 @@
         owner=root
         group=root
         state=link
-  when: packer_install_needed and packer_exists|failed
+  when: not packer_is_up_to_date and packer_exists | failed
 
 - name: create packer configuration file
   template: src=etc/packer.conf.j2

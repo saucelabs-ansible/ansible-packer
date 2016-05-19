@@ -1,0 +1,18 @@
+---
+- name: set default value of packer_version and packer_install_needed
+  set_fact:
+    packer_install_needed: False
+
+- name: check packer version
+  shell: packer --version
+  register: packer_current_version
+  ignore_errors: True
+
+- name: update value of packer_version
+  set_fact:
+    packer_is_up_to_date: "{{ packer_current_version.stdout | search(packer_version)) }}"
+  when: packer_current_version | success
+
+- name: show version info
+  debug:
+    msg: "Version requested is {{ packer_version }}, found {{ packer_current_version.stdout }}, install needed is {{ not packer_is_up_to_date }}"
