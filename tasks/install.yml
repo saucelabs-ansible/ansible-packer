@@ -25,7 +25,7 @@
 
 - name: unpack packer
   unarchive:
-    src: "{{ packer_archive_path }}"
+    src: "{{ packer_archive_path }}/{{ packer_download_url | basename }}"
     dest: "{{ packer_binary_path }}"
     copy: False
 
