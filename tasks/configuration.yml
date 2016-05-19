@@ -1,0 +1,8 @@
+---
+- name: create packer configuration file
+  template:
+    src: etc/packer.conf.j2
+    dest: /etc/packer.conf
+    mode: 0644
+    owner: root
+    group: root
