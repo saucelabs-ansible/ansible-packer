@@ -1,10 +1,7 @@
 ---
 - include: prerequisites.yml
   tags: prerequisites
-- include: check_version.yml # creates `packer_version_already_installed`
-  tags: check_version
 - include: install.yml
-  when: not packer_version_already_installed
   tags: install
 - include: configuration.yml
   tags: configuration

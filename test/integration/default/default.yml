@@ -3,11 +3,7 @@
   sudo: True
   roles:
     - role: packer
-      packer_version: 0.10.0 # old version
-    - role: packer
-      packer_version: 0.10.0 # same version
-    - role: packer
-      packer_version: 0.10.1 # new version
+      packer_version: 0.10.1
       packer_plugins:
         packer-builder-lxc:
           name: lxc
