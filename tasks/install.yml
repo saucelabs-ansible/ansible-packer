@@ -1,5 +1,5 @@
 ---
-- name: create packer directories
+- name: Create Packer directories
   file:
     state: directory
     path: "{{ item }}"
@@ -10,31 +10,31 @@
     - "{{ packer_archive_path }}"
     - "{{ packer_binary_path }}"
 
-- name: fetch packer
+- name: Download Packer
   get_url:
     url: "{{ packer_download_url }}"
     dest: "{{ packer_archive_path }}"
 
-- name: remove old packer binaries
+- name: Remove old Packer binaries
   file:
     path: "{{ item }}"
     state: absent
   with_fileglob: "{{ packer_binary_path }}/packer*"
 
-- name: unpack packer
+- name: Unpack Packer
   unarchive:
     src: "{{ packer_archive_path }}/{{ packer_download_url | basename }}"
     dest: "{{ packer_binary_path }}"
     copy: False
 
-- name: install packer plugins
+- name: Install Packer plugins
   get_url:
     url: "{{ item.value.url }}"
     dest: "{{ packer_binary_path }}/{{ item.key }}"
     force: "{{ packer_plugins_force_install }}"
   with_dict: packer_plugins
 
-- name: make packer binaries executable
+- name: Make Packer binaries executable
   file:
     path: "{{ item }}"
     state: file

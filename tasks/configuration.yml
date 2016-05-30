@@ -1,5 +1,5 @@
 ---
-- name: create packer configuration file
+- name: Configure Packer
   template:
     src: etc/packer.conf.j2
     dest: /etc/packer.conf
