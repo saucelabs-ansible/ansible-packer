@@ -10,7 +10,7 @@
 
 - name: Check if we need to install the requested version
   set_fact:
-    packer_version_already_installed: "{{ packer_current_version.stdout | search(packer_version)) }}"
+    packer_version_already_installed: "{{ packer_current_version.stdout | search(packer_version) }}"
   when: packer_current_version | success
 
 - name: Show version info for debugging
