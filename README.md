@@ -39,3 +39,9 @@ Ansible role for installing [Packer](http://packer.io).
       roles:
         - role: packer
           packer_version: 0.7.1
+
+## Testing
+
+Testing requires Ruby, Vagrant, and VirtualBox to be installed. Use of RVM (or similar) to maintain dedicated gemsets is highly recommended.
+
+First, install Vagrant and VirtualBox. Next, (optional), create a gemset for testing this role. Next, run `bundle install` to install the required gems. Finally, test the role with `kitchen test`. It should spin up an Ubuntu VM, run the role, and run the test suite against the role.

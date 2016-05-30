@@ -15,17 +15,12 @@
     url: "{{ packer_download_url }}"
     dest: "{{ packer_archive_path }}"
 
-- name: link packer-packer as packer if it does not exist
-  file:
-    state: absent
-    path: "{{ packer_binary_path }}/packer-packer"
-
 - name: remove old packer version
   shell: "rm -f {{ packer_binary_path }}/packer*"
 
 - name: unpack packer
   unarchive:
-    src: "{{ packer_archive_path }}/{{ packer_download_url }}"
+    src: "{{ packer_archive_path }}/{{ packer_download_url | basename }}"
     dest: "{{ packer_binary_path }}"
     copy: False
 
@@ -38,11 +33,3 @@
 
 - name: make packer binaries executable
   shell: "chmod 0755 {{ packer_binary_path }}/packer*"
-
-- name: link packer-packer as packer
-  file:
-    state: link
-    src: "{{ packer_binary_path }}/packer-packer"
-    dest: "{{ packer_binary_path }}/packer"
-    owner: root
-    group: root

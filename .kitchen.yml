@@ -13,7 +13,7 @@ provisioner:
   require_ruby_for_busser: false
   ansible_verbosity: 2
   ansible_verbose: true
-  idempotency_test: true
+  # idempotency_test: true
   require_ansible_repo: false
   update_package_repos: false
 
