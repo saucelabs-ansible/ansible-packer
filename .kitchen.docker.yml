@@ -4,6 +4,8 @@ driver:
   require_chef_omnibus: false
   customize:
     memory: 256
+  ssh:
+    pty: true
 
 provisioner:
   hosts: test-kitchen
@@ -21,7 +23,6 @@ verifier:
 
 platforms:
   - name: ubuntu-14.04
-    run_list: recipe[apt]
 
 suites:
   - name: default
