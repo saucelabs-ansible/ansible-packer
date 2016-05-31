@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/ldx/ansible-packer.svg?branch=master)](https://travis-ci.org/ldx/ansible-packer)
-
 # packer
+
+[![Build Status](https://travis-ci.org/saucelabs-ansible/packer.svg?branch=master)](https://travis-ci.org/saucelabs-ansible/packer)
 
 Ansible role for installing [Packer](http://packer.io).
 
