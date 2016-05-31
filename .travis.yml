@@ -1,17 +1,30 @@
-language: python
+sudo: required
+language: ruby
+dist: trusty
+cache: bundler
+
+bundler_args: "--without integration tools maintenance"
+
+before_install:
+  - gem install bundler
+  - gem update --system 2.4.5
+  - gem --version
+  - bundler update
 
 matrix:
   include:
-    - python: 2.7
+    - rvm: 2.2
+      bundler_args: "--without guard tools"
       env: TOXENV=ansible21
-    - python: 2.7
+    - rvm: 2.2
+      bundler_args: "--without guard tools"
       env: TOXENV=ansible20
-    - python: 2.7
+    - rvm: 2.2
+      bundler_args: "--without guard tools"
       env: TOXENV=ansible19
 
 install:
-  - pip install tox
+  - sudo pip install tox
 
 script:
   - tox
-
