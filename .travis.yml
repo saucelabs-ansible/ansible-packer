@@ -1,4 +1,18 @@
-language: c
-before_install:
-  - sudo pip install ansible
-script: ansible-playbook -i localhost, -c local test.yml
+language: python
+sudo: yes
+
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=ansible21
+    - python: 2.7
+      env: TOXENV=ansible20
+    - python: 2.7
+      env: TOXENV=ansible19
+
+install:
+  - pip install tox
+
+script:
+  - tox
+
