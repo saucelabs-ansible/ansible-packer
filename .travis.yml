@@ -1,30 +1,29 @@
 sudo: required
-language: ruby
 dist: trusty
+
+rvm: 2.2
+
+services:
+  - docker
+
 cache: bundler
 
-bundler_args: "--without integration tools maintenance"
+services:
+  - docker
 
-before_install:
-  - gem install bundler
-  - gem update --system 2.4.5
-  - gem --version
-  - bundler update
-
-matrix:
-  include:
-    - rvm: 2.2
-      bundler_args: "--without guard tools"
-      env: TOXENV=ansible21
-    - rvm: 2.2
-      bundler_args: "--without guard tools"
-      env: TOXENV=ansible20
-    - rvm: 2.2
-      bundler_args: "--without guard tools"
-      env: TOXENV=ansible19
+env:
+  global:
+    - KITCHEN_DRIVER=docker
+    - KITCHEN_PROVIDER=docker
+    - KITCHEN_PLATFORM=ubuntu-14.04
+  matrix:
+    - ANSIBLE_VERSION=latest
 
 install:
-  - sudo pip install tox
+  - bundle install --path vendor/bundle
+
+before_script:
+  - sudo iptables -L DOCKER || sudo iptables -N DOCKER
 
 script:
-  - tox
+  - bundle exec kitchen test

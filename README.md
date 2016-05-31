@@ -46,6 +46,31 @@ packer_plugins:
 
 ## Testing
 
-Testing requires Ruby, Vagrant, and VirtualBox to be installed. Use of RVM (or similar) to maintain dedicated gemsets is highly recommended.
+Testing requires Ruby, Vagrant and VirtualBox or Docker to be installed.
 
-First, install Vagrant and VirtualBox. Next, (optional), create a gemset for testing this role. Next, run `bundle install` to install the required gems. Finally, test the role with `kitchen test`. It should spin up an Ubuntu VM, run the role, and run the test suite against the role.
+Use of RVM (or similar) to maintain dedicated gemsets is highly recommended.
+
+First, install Vagrant and VirtualBox.
+
+Next install Ruby:
+
+    rvm install ruby-2.2
+
+Next, (optional), create a gemset for testing this role:
+
+    rvm use 2.2@saucelabs-ansible_packer --create
+    bundle install
+
+A simpler alternative is to install the dependencies in a vendor directory
+
+    rvm use 2.2
+    bundler install --path vendor/bundle
+
+Finally, test the role with `kitchen test`.
+
+It should spin up an Ubuntu VM, run the role, and run the test suite against the role.
+
+```
+KITCHEN_DRIVER=docker KITCHEN_PROVIDER=docker KITCHEN_PLATFORM=ubuntu-14.04 bundle exec kitchen test
+KITCHEN_DRIVER=vagrant KITCHEN_PROVIDER=virtualbox KITCHEN_PLATFORM=ubuntu/trusty64 bundle exec kitchen test
+```

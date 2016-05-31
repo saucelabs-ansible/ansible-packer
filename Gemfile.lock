@@ -99,7 +99,7 @@ GEM
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
     slop (3.6.0)
-    test-kitchen (1.9.0)
+    test-kitchen (1.8.0)
       mixlib-install (~> 1.0, >= 1.0.4)
       mixlib-shellout (>= 1.2, < 3.0)
       net-scp (~> 1.1)
@@ -130,7 +130,7 @@ DEPENDENCIES
   kitchen-docker
   kitchen-inspec
   kitchen-vagrant
-  test-kitchen (~> 1.4)
+  test-kitchen (~> 1.4, < 1.9.0)
 
 BUNDLED WITH
    1.12.5
