@@ -14,6 +14,7 @@
   get_url:
     url: "{{ packer_download_url }}"
     dest: "{{ packer_archive_path }}"
+    force: "{{ packer_force_install }}"
   register: download
 
 - name: Unpack Packer
@@ -23,11 +24,11 @@
     copy: False
   when: download.changed
 
-- name: Install Packer plugins
+- name: Download Packer plugins
   get_url:
     url: "{{ item.value.url }}"
     dest: "{{ packer_binary_path }}/{{ item.key }}"
-    force: "{{ packer_plugins_force_install }}"
+    force: "{{ packer_force_install }}"
   with_dict: packer_plugins
 
 - name: Make Packer binaries executable

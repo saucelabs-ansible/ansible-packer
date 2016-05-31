@@ -16,11 +16,13 @@ Ansible role for installing [Packer](http://packer.io).
 
 - `packer_plugins`: A dictionary of plugins to be installed. Example:
 
-    packer_plugins:
-      packer-builder-lxc:
-        name: lxc
-        type: builder
-        url: https://s3.amazonaws.com/my-s3-bucket/packer-builder-lxc
+```
+packer_plugins:
+  packer-builder-lxc:
+    name: lxc
+    type: builder
+    url: https://s3.amazonaws.com/my-s3-bucket/packer-builder-lxc
+```
 
   Where
   - `name`: the name of the plugin that can be used in a packer template.
@@ -29,7 +31,7 @@ Ansible role for installing [Packer](http://packer.io).
 
   A packer configuration file at `/etc/packer.conf` will automatically created that contains any builder or provisioner installed via `packer_plugins`.
 
-- `packer_plugins_force_install`: Whether to force the installation of plugins, even if they exist. Useful for forcing an update. Example: `false`.
+- `packer_force_install`: Whether to force the installation of Packer and its plugins if they already exist. Useful for forcing an update.
 
 ## Example playbook
 
@@ -39,6 +41,7 @@ Ansible role for installing [Packer](http://packer.io).
       roles:
         - role: packer
           packer_version: 0.7.1
+          force_install: True
 
 ## Testing
 
