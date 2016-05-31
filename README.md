@@ -14,6 +14,8 @@ Ansible role for installing [Packer](http://packer.io).
 
 - `packer_binary_path`: Where Packer binaries will be extracted to.
 
+- `packer_force_install`: Whether to force the installation of Packer and its plugins if they already exist. Useful for forcing an update.
+
 - `packer_plugins`: A dictionary of plugins to be installed. Example:
 
 ```
@@ -30,8 +32,6 @@ packer_plugins:
   - `url`: URL to fetch the binary from.
 
   A packer configuration file at `/etc/packer.conf` will automatically created that contains any builder or provisioner installed via `packer_plugins`.
-
-- `packer_force_install`: Whether to force the installation of Packer and its plugins if they already exist. Useful for forcing an update.
 
 ## Example playbook
 
