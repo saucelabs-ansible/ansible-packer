@@ -1,4 +1,34 @@
-language: c
+sudo: required
+language: ruby
+cache: bundler
+dist: trusty
+services:
+  - docker
+cache: bundler
+
+bundler_args: "--without integration tools maintenance"
+
 before_install:
-  - sudo pip install ansible
-script: ansible-playbook -i localhost, -c local test.yml
+  - gem install bundler
+  - gem update --system 2.4.5
+  - gem --version
+  - bundler update
+
+matrix:
+  include:
+    - rvm: 2.2
+      bundler_args: "--without guard tools"
+      env: TOXENV=ansible21
+    - rvm: 2.2
+      bundler_args: "--without guard tools"
+      env: TOXENV=ansible20
+    - rvm: 2.2
+      bundler_args: "--without guard tools"
+      env: TOXENV=ansible19
+
+install:
+  - sudo pip install tox
+  - ln -s .kitchen.docker.yml .kitchen.yml
+
+script:
+  - tox
