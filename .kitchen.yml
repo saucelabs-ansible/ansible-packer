@@ -1,11 +1,10 @@
 ---
 driver:
-  name: docker
+  name: <%= ENV['KITCHEN_DRIVER'] || 'vagrant' %>
+  provider: <%= ENV['KITCHEN_PROVIDER'] || 'virtualbox' %>
   require_chef_omnibus: false
   customize:
     memory: 256
-  ssh:
-    pty: true
 
 provisioner:
   hosts: test-kitchen
@@ -22,8 +21,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-14.04
+  - name: <%= ENV['KITCHEN_PLATFORM'] || 'supertylerc/ansible-1.9' %>
 
 suites:
   - name: default
-
