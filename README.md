@@ -1,5 +1,6 @@
 # packer
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/saucelabs-ansible/packer/master/LICENSE)
 [![Build Status](https://travis-ci.org/saucelabs-ansible/packer.svg?branch=master)](https://travis-ci.org/saucelabs-ansible/packer)
 
 Ansible role for installing [Packer](http://packer.io).
