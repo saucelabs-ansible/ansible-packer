@@ -1,6 +1,6 @@
 ---
 driver:
-  name: vagrant
+  name: <%= ENV['KITCHEN_DRIVER'] || 'vagrant' %>
   provider: <%= ENV['KITCHEN_PROVIDER'] || 'virtualbox' %>
   require_chef_omnibus: false
   customize:
