@@ -18,6 +18,9 @@ env:
     - KITCHEN_PLATFORM=ubuntu-14.04
   matrix:
     - ANSIBLE_VERSION=latest
+    - ANSIBLE_VERSION=2.0.2
+    - ANSIBLE_VERSION=1.9.6
+    - ANSIBLE_VERSION-1.9.2
 
 install:
   - bundle install --path vendor/bundle
@@ -27,3 +30,4 @@ before_script:
 
 script:
   - bundle exec kitchen test
+

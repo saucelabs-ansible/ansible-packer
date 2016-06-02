@@ -4,18 +4,18 @@ driver:
   provider: <%= ENV['KITCHEN_PROVIDER'] || 'virtualbox' %>
   require_chef_omnibus: false
   customize:
-    memory: 256
+    memory: 1024
 
 provisioner:
   hosts: test-kitchen
   name: ansible_playbook
-  require_ansible_repo: true
-  ansible_version: <%= ENV['ANSIBLE_VERSION'] || 'latest' %>
-  require_chef_for_busser: false
-  require_ruby_for_busser: false
+  ansible_version: <%= ENV['ANSIBLE_VERSION'] || '1.9.2' %>
   ansible_verbosity: 2
   ansible_verbose: true
   idempotency_test: true
+  require_chef_for_busser: false
+  require_pip: true
+  require_ruby_for_busser: false
   update_package_repos: false
 
 verifier:
