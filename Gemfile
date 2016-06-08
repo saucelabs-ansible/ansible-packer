@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'inspec'
-gem 'test-kitchen', '~> 1.4', '< 1.9.0'
+gem 'test-kitchen', '> 1.9.0'
 gem 'kitchen-ansible', '>= 0.43.0'
 gem 'kitchen-vagrant'
 gem 'kitchen-inspec'
