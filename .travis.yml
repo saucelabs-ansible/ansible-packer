@@ -6,11 +6,6 @@ rvm: 2.2
 services:
   - docker
 
-cache: bundler
-
-services:
-  - docker
-
 env:
   global:
     - KITCHEN_DRIVER=docker
@@ -30,4 +25,11 @@ before_script:
 
 script:
   - bundle exec kitchen test
+
+before_cache:
+  - rm -f ${HOME}/.cache/pip/log/debug.log
+
+cache:
+  - bundler
+  - pip
 
