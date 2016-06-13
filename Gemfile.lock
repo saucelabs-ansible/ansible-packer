@@ -54,7 +54,7 @@ GEM
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
     method_source (0.8.2)
-    mixlib-install (1.0.12)
+    mixlib-install (1.0.13)
       artifactory
       mixlib-shellout
       mixlib-versioning
@@ -99,7 +99,7 @@ GEM
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
     slop (3.6.0)
-    test-kitchen (1.9.1)
+    test-kitchen (1.9.2)
       mixlib-install (~> 1.0, >= 1.0.4)
       mixlib-shellout (>= 1.2, < 3.0)
       net-scp (~> 1.1)
@@ -130,7 +130,7 @@ DEPENDENCIES
   kitchen-docker
   kitchen-inspec
   kitchen-vagrant
-  test-kitchen (> 1.9.0)
+  test-kitchen (>= 1.9.2)
 
 BUNDLED WITH
    1.12.5
