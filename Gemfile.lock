@@ -32,7 +32,7 @@ GEM
       rubyzip (~> 1.1)
       thor (~> 0.19)
     json (1.8.3)
-    kitchen-ansible (0.43.1)
+    kitchen-ansible (0.44.1)
       librarian-ansible
       net-ssh (~> 3)
       test-kitchen (~> 1.4)
@@ -126,7 +126,7 @@ PLATFORMS
 
 DEPENDENCIES
   inspec
-  kitchen-ansible (>= 0.43.0)
+  kitchen-ansible (>= 0.44.1)
   kitchen-docker
   kitchen-inspec
   kitchen-vagrant
