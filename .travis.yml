@@ -13,13 +13,12 @@ before_install:
   - bundler update
 
 env:
-  - ANSIBLE_VERSION=latest
   - ANSIBLE_VERSION=1.9.4
   - ANSIBLE_VERSION=2.0.0.0
   - ANSIBLE_VERSION=2.1.0.0
 
 install:
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible ansible; else pip install ansible ansible==$ANSIBLE_VERSION; fi
+  - pip install ansible==$ANSIBLE_VERSION
 
 script:
   - bundle exec inspec exec test/integration/default/packer_spec.rb
