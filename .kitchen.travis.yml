@@ -3,6 +3,9 @@ driver:
   name: proxy
   host: localhost
   reset_command: "exit 0"
+  port: 22
+  username: travis
+  password: travis
 
 provisioner:
   hosts: test-kitchen
