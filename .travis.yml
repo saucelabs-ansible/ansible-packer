@@ -1,7 +1,5 @@
 sudo: required
-dist:
-  - trusty
-  - xenial
+dist: trusty
 
 language: ruby
 cache: bundler
