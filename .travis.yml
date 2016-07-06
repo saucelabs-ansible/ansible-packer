@@ -18,6 +18,7 @@ env:
   - ANSIBLE_VERSION=2.1.0.0
 
 install:
+  - ansible-playbook -i localhost, -c local test/integration/default/default.yml
   - sudo pip install ansible==$ANSIBLE_VERSION
 
 script:
