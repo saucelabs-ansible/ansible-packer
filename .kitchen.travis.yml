@@ -2,6 +2,7 @@
 driver:
   name: proxy
   host: localhost
+  reset_command: "exit 0"
 
 provisioner:
   hosts: test-kitchen
