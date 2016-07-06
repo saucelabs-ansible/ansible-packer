@@ -1,5 +1,7 @@
 sudo: required
-dist: trusty
+dist:
+  - trusty
+  - xenial
 
 language: ruby
 cache: bundler
@@ -21,5 +23,11 @@ install:
   - sudo pip install ansible==$ANSIBLE_VERSION
 
 script:
-  - ansible-playbook -i localhost, -c local test/integration/default/default.yml
-  - bundle exec inspec exec test/integration/default/packer_spec.rb
+  - KITCHEN_YAML="./.kitchen.travis.yaml" kitchen test
+  # - ansible-playbook -i localhost, -c local test/integration/default/default.yml
+  # - >
+  #   ansible-playbook -i tests/inventory tests/test.yml
+  #   | grep -q 'changed=0.*failed=0'
+  #   && (echo 'Idempotence test: pass' && exit 0)
+  #   || (echo 'Idempotence test: fail' && exit 1)
+  # - bundle exec inspec exec test/integration/default/packer_spec.rb
