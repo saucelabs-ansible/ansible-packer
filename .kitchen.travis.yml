@@ -1,5 +1,7 @@
 ---
-driver: local
+driver:
+  name: proxy
+  host: localhost
 
 provisioner:
   hosts: test-kitchen
