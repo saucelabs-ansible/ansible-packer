@@ -13,10 +13,12 @@ before_install:
   - bundler update
 
 env:
-  - KITCHEN_YAML=.kitchen.travis.yml
-  - ANSIBLE_VERSION=1.9.4
-  - ANSIBLE_VERSION=2.0.0.0
-  - ANSIBLE_VERSION=2.1.0.0
+  global:
+    - KITCHEN_YAML=.kitchen.travis.yml
+  matrix:
+    - ANSIBLE_VERSION=1.9.4
+    - ANSIBLE_VERSION=2.0.0.0
+    - ANSIBLE_VERSION=2.1.0.0
 
 install:
   - sudo pip install ansible==$ANSIBLE_VERSION
