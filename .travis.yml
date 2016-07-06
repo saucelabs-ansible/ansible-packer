@@ -19,7 +19,7 @@ env:
   - ANSIBLE_VERSION=2.1.0.0
 
 install:
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install --no-binary ansible ansible; else pip install --no-binary ansible ansible==$ANSIBLE_VERSION; fi
+  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible ansible; else pip install ansible ansible==$ANSIBLE_VERSION; fi
 
 script:
   - bundle exec inspec exec test/integration/default/packer_spec.rb
