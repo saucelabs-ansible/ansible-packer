@@ -14,6 +14,9 @@ before_install:
 
 env:
   global:
+    - machine_user=travis
+    - machine_pass=travis
+    - machine_port=22
     - KITCHEN_YAML=.kitchen.travis.yml
   matrix:
     - ANSIBLE_VERSION=1.9.4
