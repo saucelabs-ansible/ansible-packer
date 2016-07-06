@@ -24,6 +24,7 @@ install:
   - sudo pip install ansible==$ANSIBLE_VERSION
 
 script:
+  - kitchen list
   - kitchen test
   # - ansible-playbook -i localhost, -c local test/integration/default/default.yml
   # - >
