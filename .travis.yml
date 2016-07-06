@@ -1,8 +1,9 @@
 sudo: required
-language: ruby
 dist: trusty
-cache: bundler
 
+language: ruby
+cache: bundler
+rvm: 2.2
 bundler_args: "--without integration tools maintenance"
 
 before_install:
@@ -11,20 +12,14 @@ before_install:
   - gem --version
   - bundler update
 
-matrix:
-  include:
-    - rvm: 2.2
-      bundler_args: "--without guard tools"
-      env: TOXENV=ansible21
-    - rvm: 2.2
-      bundler_args: "--without guard tools"
-      env: TOXENV=ansible20
-    - rvm: 2.2
-      bundler_args: "--without guard tools"
-      env: TOXENV=ansible19
+env:
+  - ANSIBLE_VERSION=latest
+  - ANSIBLE_VERSION=1.9.4
+  - ANSIBLE_VERSION=2.0.0.0
+  - ANSIBLE_VERSION=2.1.0.0
 
 install:
-  - sudo pip install tox
+  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install --no-binary ansible ansible; else pip install --no-binary ansible ansible==$ANSIBLE_VERSION; fi
 
 script:
-  - tox
+  - bundle exec inspec exec test/integration/default/packer_spec.rb
