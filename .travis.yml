@@ -20,7 +20,6 @@ rvm: 2.2
 bundler_args: "--without integration tools maintenance"
 
 before_install:
-  - sudo usermod -p "`openssl passwd -1 'travis'`" travis
   - gem install bundler
   - gem update --system 2.4.5
   - gem --version
@@ -28,9 +27,6 @@ before_install:
 
 env:
   global:
-    - machine_user=travis
-    - machine_pass=travis
-    - machine_port=22
     - KITCHEN_YAML=.kitchen.travis.yml
   matrix:
     - ANSIBLE_VERSION=1.9.4
