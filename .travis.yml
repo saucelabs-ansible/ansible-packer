@@ -1,16 +1,6 @@
 sudo: required
 dist: trusty
-
 language: ruby
-# cache: bundler
-rvm: 2.2
-# bundler_args: "--without integration tools maintenance"
-
-# before_install:
-#   - gem install bundler
-#   - gem update --system 2.4.5
-#   - gem --version
-#   - bundler update
 
 env:
   - ANSIBLE_VERSION=1.9.4
