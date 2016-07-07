@@ -2,7 +2,15 @@ sudo: required
 dist: trusty
 
 language: ruby
+# cache: bundler
 rvm: 2.2
+# bundler_args: "--without integration tools maintenance"
+
+# before_install:
+#   - gem install bundler
+#   - gem update --system 2.4.5
+#   - gem --version
+#   - bundler update
 
 env:
   - ANSIBLE_VERSION=1.9.4
@@ -16,8 +24,8 @@ install:
 script:
   - ansible-playbook -i localhost, -c local test/integration/default/default.yml
   - >
-    ansible-playbook -i tests/inventory tests/test.yml
+    ansible-playbook -i localhost, -c local test/integration/default/default.yml
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
-  - bundle exec inspec exec test/integration/default/packer_spec.rb
+  - inspec exec test/integration/default/packer_spec.rb
