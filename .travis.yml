@@ -1,35 +1,48 @@
 sudo: required
-dist: trusty
-
 language: ruby
-cache: bundler
-rvm: 2.2
-bundler_args: "--without integration tools maintenance"
+services:
+  - docker
 
 before_install:
-  - sudo usermod -p "`openssl passwd -1 'travis'`" travis
-  - gem install bundler
-  - gem update --system 2.4.5
-  - gem --version
-  - bundler update
-
-env:
-  global:
-    - machine_user=travis
-    - machine_pass=travis
-    - machine_port=22
-    - KITCHEN_YAML=.kitchen.travis.yml
-  matrix:
-    - ANSIBLE_VERSION=1.9.4
-    - ANSIBLE_VERSION=2.0.0.0
-    - ANSIBLE_VERSION=2.1.0.0
-
-install:
-  - sudo pip install ansible==$ANSIBLE_VERSION
+- docker pull ubuntu/trusty
+- docker ps -a
 
 script:
-  - kitchen list
-  - kitchen test
+- bundle exec rake test
+
+# sudo: required
+# dist: trusty
+
+# language: ruby
+# cache: bundler
+# rvm: 2.2
+# bundler_args: "--without integration tools maintenance"
+
+# before_install:
+#   - sudo usermod -p "`openssl passwd -1 'travis'`" travis
+#   - gem install bundler
+#   - gem update --system 2.4.5
+#   - gem --version
+#   - bundler update
+
+# env:
+#   global:
+#     - machine_user=travis
+#     - machine_pass=travis
+#     - machine_port=22
+#     - KITCHEN_YAML=.kitchen.travis.yml
+#   matrix:
+#     - ANSIBLE_VERSION=1.9.4
+#     - ANSIBLE_VERSION=2.0.0.0
+#     - ANSIBLE_VERSION=2.1.0.0
+
+# install:
+#   - sudo pip install ansible==$ANSIBLE_VERSION
+
+# script:
+#   - kitchen list
+#   - kitchen test
+
   # - ansible-playbook -i localhost, -c local test/integration/default/default.yml
   # - >
   #   ansible-playbook -i tests/inventory tests/test.yml
