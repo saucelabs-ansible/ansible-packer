@@ -1,57 +1,23 @@
----
-# sudo: required
-# language: ruby
-# services:
-#   - docker
-
-# before_install:
-# - docker pull ubuntu/trusty
-# - docker ps -a
-
-# script:
-# - bundle exec rake test
-
 sudo: required
 dist: trusty
 
 language: ruby
-cache: bundler
 rvm: 2.2
-bundler_args: "--without integration tools maintenance"
-
-before_install:
-  - sudo usermod -p "`openssl passwd -1 'travis'`" travis
-  - gem install bundler
-  - gem update --system 2.4.5
-  - gem --version
-  - bundler update
 
 env:
-  global:
-    - machine_user=travis
-    - machine_pass=travis
-    - machine_port=22
-    - KITCHEN_YAML=.kitchen.travis.yml
-  matrix:
-    - ANSIBLE_VERSION=1.9.4
-    - ANSIBLE_VERSION=2.0.0.0
-    - ANSIBLE_VERSION=2.1.0.0
+  - ANSIBLE_VERSION=1.9.4
+  - ANSIBLE_VERSION=2.0.0.0
+  - ANSIBLE_VERSION=2.1.0.0
 
 install:
   - sudo pip install ansible==$ANSIBLE_VERSION
+  - gem install inspec
 
 script:
-  - kitchen list
-  - kitchen test
-
-
-
-
-
-  # - ansible-playbook -i localhost, -c local test/integration/default/default.yml
-  # - >
-  #   ansible-playbook -i tests/inventory tests/test.yml
-  #   | grep -q 'changed=0.*failed=0'
-  #   && (echo 'Idempotence test: pass' && exit 0)
-  #   || (echo 'Idempotence test: fail' && exit 1)
-  # - bundle exec inspec exec test/integration/default/packer_spec.rb
+  - ansible-playbook -i localhost, -c local test/integration/default/default.yml
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+  - bundle exec inspec exec test/integration/default/packer_spec.rb
