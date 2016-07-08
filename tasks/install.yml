@@ -30,6 +30,10 @@
     dest: "{{ packer_binary_path }}/{{ item.key }}"
     force: "{{ packer_force_install }}"
   with_dict: packer_plugins
+  register: result
+  until: result.rc == 0
+  retries: 5
+  delay: 5
 
 - name: Make Packer binaries executable
   file:
